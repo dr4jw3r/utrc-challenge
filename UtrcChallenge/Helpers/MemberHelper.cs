@@ -8,6 +8,11 @@ namespace UtrcChallenge.Helpers
     {
         #region Public Methods
 
+        /// <summary>
+        /// Parses the contents of the file
+        /// </summary>
+        /// <param name="fileContents">Contents of the Social Network file</param>
+        /// <returns>A dictionary of nodes with the member name as the key and their friends as the value</returns>
         public static Dictionary<string, HashSet<string>> CreateMembers(string[] fileContents)
         {
             Dictionary<string, HashSet<string>> members = new Dictionary<string, HashSet<string>>();
@@ -16,6 +21,8 @@ namespace UtrcChallenge.Helpers
             {
                 string[] memberNames = fileContents[i].Split(',');
 
+                // Check whether the first member already exists within the members dictionary
+                // if not, create a new node and add it to the dictionary
                 if (!members.ContainsKey(memberNames[0]))
                 {
                     members.Add(memberNames[0], new HashSet<string>());
@@ -26,6 +33,7 @@ namespace UtrcChallenge.Helpers
                     members.Add(memberNames[1], new HashSet<string>());
                 }
 
+                // Create a bi-directional link between the two members
                 members[memberNames[0]].Add(memberNames[1]);
                 members[memberNames[1]].Add(memberNames[0]);
             }
@@ -33,12 +41,22 @@ namespace UtrcChallenge.Helpers
             return members;
         }
 
+        /// <summary>
+        /// Finds the shortest distance between two specified nodes
+        /// </summary>
+        /// <param name="members">The members dictionary</param>
+        /// <param name="startMember">Starting point for the search</param>
+        /// <param name="endMember">End point for the search</param>
+        /// <returns></returns>
         public static int GetShortestDistance(Dictionary<string, HashSet<string>> members, string startMember, string endMember)
         {
             HashSet<string> visited = new HashSet<string>();
             Queue<Node> queue = new Queue<Node>();
 
+            // Enqueue the first item with depth 0 (distance to itself)
             queue.Enqueue(new Node { Depth = 0, Friends = members[startMember] });
+
+            // Mark the first node as visited
             visited.Add(startMember);
 
             while(queue.Count > 0)
@@ -54,16 +72,21 @@ namespace UtrcChallenge.Helpers
 
                     visited.Add(friend);
 
+                    // Checks whether the current friend is the one we are looking for
                     if (friend.Equals(endMember, StringComparison.InvariantCultureIgnoreCase))
                     {
+                        // Add one to the depth of the current node because the friend is a subnode
                         return node.Depth + 1;
                     }
 
+                    // Add all of the friends in the current node to the queue so that they can be searched
+                    // Also, increase the depth of the enqueued node
                     queue.Enqueue(new Node { Depth = node.Depth + 1, Friends = members[friend] });
                 }
 
             }
 
+            // End point not reached
             return -1;
         }
 

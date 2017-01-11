@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UtrcChallenge.Helpers;
 
 namespace UtrcChallenge
@@ -8,6 +9,8 @@ namespace UtrcChallenge
     class Program
     {
         #region Private Members
+
+        private static bool showTimer;
 
         private static Stopwatch stopwatch;
 
@@ -18,11 +21,92 @@ namespace UtrcChallenge
 
         #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// Prints help to the console
+        /// </summary>
+        private static void DisplayHelp()
+        {
+            Console.WriteLine("Options:");
+            Console.WriteLine("--------");
+            Console.WriteLine("\t/h /help\tDisplay this help menu");
+            Console.WriteLine("\t/t /timer\tDisplay the timer");
+            
+            Environment.Exit(0);
+        }
+
+        /// <summary>
+        /// Checks whether the help argument is present in the arguments array
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns></returns>
+        private static bool HasHelpArgument(string[] args)
+        {
+            string[] helpArgs = { "-h", "--help", "/?", "?", "/h", "/help"};
+            IEnumerable<string> intersect = Enumerable.Intersect(args, helpArgs);
+            return intersect.Count() > 0;
+        }
+
+        /// <summary>
+        /// Handles the command line arguments
+        /// </summary>
+        /// <param name="args"></param>
+        private static void HandleArgs(string[] args)
+        {
+            if(HasHelpArgument(args))
+            {
+                DisplayHelp();
+            }
+            showTimer = Array.IndexOf(args, "/t") != -1 || Array.IndexOf(args, "/timer") != -1;
+        }
+
+        /// <summary>
+        /// Prints the header
+        /// </summary>
+        private static void PrintHeader()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\nType /h or /help to display available options\n");
+            Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Prints the result
+        /// </summary>
+        /// <param name="shortestDistance"></param>
+        private static void PrintResult(int shortestDistance)
+        {
+            Console.WriteLine($"Total number of members: {members.Count}");
+            string message = shortestDistance != -1
+                ? $"Shortest distance between {start} and {end}: {shortestDistance}"
+                : "Link between the two members not found";
+
+            Console.WriteLine(message);
+            Console.WriteLine("\nPress ENTER to continue...");
+            Console.ReadLine();
+        }
+
+        #endregion
+
         #region Main
 
         static void Main(string[] args)
         {
-            stopwatch = Stopwatch.StartNew();
+            PrintHeader();
+
+            if (args.Length > 0)
+            {
+                HandleArgs(args);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Started...");
+
+            if (showTimer)
+            {
+                stopwatch = Stopwatch.StartNew();
+            }
 
             // Read the contents of the SocialNetwork.txt file
             string[] fileContents = FileHelper.ReadFile("Resources/SocialNetwork.txt");
@@ -33,13 +117,16 @@ namespace UtrcChallenge
             // Find the shortest path between the two specified members
             int shortestDistance = MemberHelper.GetShortestDistance(members, end, start);
 
-            stopwatch.Stop();
+            Console.WriteLine("Done!\n");
+            Console.ResetColor();
 
-            Console.WriteLine($"Elapsed: {stopwatch.Elapsed}");
-            Console.WriteLine($"Total number of members: {members.Count}");
-            Console.WriteLine($"Shortest distance: {shortestDistance}");
-            Console.WriteLine("Press enter to continue...");
-            Console.ReadLine();
+            if(showTimer)
+            {
+                stopwatch.Stop();
+                Console.WriteLine($"Elapsed: {stopwatch.Elapsed}");
+            }
+
+            PrintResult(shortestDistance);
         }
 
         #endregion
