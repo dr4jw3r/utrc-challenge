@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F55A8E4E-4337-4025-B6FF-39A3BAC65DD5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UtrcChallenge</RootNamespace>
-    <AssemblyName>UtrcChallenge</AssemblyName>
+    <RootNamespace>UtrcChallenge.Tests</RootNamespace>
+    <AssemblyName>UtrcChallenge.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,24 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Helpers\MemberHelper.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\FileHelperTests.cs" />
+    <Compile Include="UnitTests\MemberHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\SocialNetwork.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UtrcChallenge.Models\UtrcChallenge.Models.csproj">
-      <Project>{9EB2DDB5-89A0-4D9E-91F7-35AEF183A200}</Project>
-      <Name>UtrcChallenge.Models</Name>
+    <ProjectReference Include="..\UtrcChallenge\UtrcChallenge.csproj">
+      <Project>{F55A8E4E-4337-4025-B6FF-39A3BAC65DD5}</Project>
+      <Name>UtrcChallenge</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

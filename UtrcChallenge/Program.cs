@@ -72,6 +72,19 @@ namespace UtrcChallenge
         }
 
         /// <summary>
+        /// Prints the missing file error
+        /// </summary>
+        private static void PrintMissingFileError()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Failed to read the SocialNetwork.txt file. Please make sure that the file is present.");
+            Console.ResetColor();
+            Console.WriteLine("Press ENTER to continue...");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
+
+        /// <summary>
         /// Prints the result
         /// </summary>
         /// <param name="shortestDistance"></param>
@@ -110,6 +123,10 @@ namespace UtrcChallenge
 
             // Read the contents of the SocialNetwork.txt file
             string[] fileContents = FileHelper.ReadFile("Resources/SocialNetwork.txt");
+            if(fileContents == null)
+            {
+                PrintMissingFileError();
+            }
 
             // Convert the file contents into a list of members
             members = MemberHelper.CreateMembers(fileContents);

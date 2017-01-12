@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtrcChallenge", "UtrcChalle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtrcChallenge.Models", "UtrcChallenge.Models\UtrcChallenge.Models.csproj", "{9EB2DDB5-89A0-4D9E-91F7-35AEF183A200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtrcChallenge.Tests", "UtrcChallenge.Tests\UtrcChallenge.Tests.csproj", "{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9EB2DDB5-89A0-4D9E-91F7-35AEF183A200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EB2DDB5-89A0-4D9E-91F7-35AEF183A200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EB2DDB5-89A0-4D9E-91F7-35AEF183A200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0EAA84-8C0F-4E60-8FE8-055824AEC1A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
