@@ -18,7 +18,7 @@ namespace UtrcChallenge.Helpers
             {
                 return File.ReadAllLines(path);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }

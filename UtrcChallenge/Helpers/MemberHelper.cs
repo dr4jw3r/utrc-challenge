@@ -50,18 +50,22 @@ namespace UtrcChallenge.Helpers
         /// <returns></returns>
         public static int GetShortestDistance(Dictionary<string, HashSet<string>> members, string startMember, string endMember)
         {
+            // Hash set to store visited nodes
             HashSet<string> visited = new HashSet<string>();
+
+            // Search queue
             Queue<Node> queue = new Queue<Node>();
 
             // Enqueue the first item with depth 0 (distance to itself)
             queue.Enqueue(new Node { Depth = 0, Friends = members[startMember] });
 
-            // Mark the first node as visited
+            // Add the first node to the hash set
             visited.Add(startMember);
 
+            Node node;
             while(queue.Count > 0)
             {
-                Node node = queue.Dequeue();
+                node = queue.Dequeue();
 
                 foreach (string friend in node.Friends)
                 {

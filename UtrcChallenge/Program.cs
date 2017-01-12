@@ -134,12 +134,16 @@ namespace UtrcChallenge
             // Find the shortest path between the two specified members
             int shortestDistance = MemberHelper.GetShortestDistance(members, end, start);
 
+            if(stopwatch != null)
+            {
+                stopwatch.Stop();
+            }
+
             Console.WriteLine("Done!\n");
             Console.ResetColor();
 
             if(showTimer)
-            {
-                stopwatch.Stop();
+            {                
                 Console.WriteLine($"Elapsed: {stopwatch.Elapsed}");
             }
 
