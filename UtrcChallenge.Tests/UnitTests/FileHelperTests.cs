@@ -10,12 +10,13 @@ namespace UtrcChallenge.Tests.UnitTests
         [Test]
         public void CorrectlyReadsFileContents()
         {
-            const string FileName = "test.txt";
+            string testDirectory = TestContext.CurrentContext.TestDirectory;
+            string filePath = $"{testDirectory}/test.txt";
 
             string[] fileLines = { "LINE_1", "LINE_2", "LINE_3", "LINE_4" };
-            File.WriteAllLines(FileName, fileLines);
-            string[] fileContents = FileHelper.ReadFile(FileName);
-            File.Delete(FileName);
+            File.WriteAllLines(filePath, fileLines);
+            string[] fileContents = FileHelper.ReadFile(filePath);
+            File.Delete(filePath);
 
             Assert.AreEqual(4, fileContents.Length);
         }
